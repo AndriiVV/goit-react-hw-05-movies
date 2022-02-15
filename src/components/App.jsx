@@ -1,17 +1,24 @@
+import { Route, Switch } from "react-router-dom";
+
+import MainNav from "./MainNav/MainNav";
+import HomePage from "pages/HomePage"
+import SearchForm from "pages/SearchForm";
+
+
 export const App = () => {
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        textTransform: 'uppercase',
-        color: '#010101',
-      }}
-    >
-      React homework template
+    <div>
+      <MainNav />
+      <Switch>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/movies">
+          <SearchForm />
+        </Route>
+
+      </Switch>
     </div>
   );
 };
