@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import getMovies from "utils/getMovies";
-import TrendingList from "components/TrendingList/TrendingList";
+import MoviesList from "components/MoviesList/MoviesList";
 
 
 const TrendingToday = () => { 
@@ -9,26 +9,28 @@ const TrendingToday = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
-    // const addMovies = () => { 
-      getMovies()
-        .then(({ list, totalPages, page }) => {
-          console.log("list: ", list);
-          console.log("totalPages: ", totalPages);
-          console.log("page: ", page);
-          setMoviesList([...list]);
-         })
-        .catch((err) => {
-          setError(err.message);
-        });
-    // }
     
-    // addMovies();
+    getMovies('trending/movie/day')
+      .then(({ list, totalPages, page }) => {
+        console.log("list: ", list);
+        console.log("totalPages: ", totalPages);
+        console.log("page: ", page);
+        setMoviesList([...list]);
+        })
+      .catch((err) => {
+        setError(err.message);
+      });
+    
   }, []);
 
   return (
     <>
-      {error ? (<p>{error}</p>) : (<TrendingList moviesList={moviesList} />)}
+      {error ? (<p>{error}</p>) : (
+        <>
+        <p className="TrendingTitle">Trending today</p>
+          <MoviesList moviesList={moviesList} />
+        </>
+        )}
     </>
   );
 

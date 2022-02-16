@@ -10,20 +10,22 @@ const KEY = '9a389bdbd8352accf5233ce20b48d66b';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
-const setParams = () =>
+const setParams = query =>
   (axios.defaults.params = {
     // media_type: 'movie',
     // time_window: 'day',
+    query,
     page: 1,
+    sort_by: 'popularity.desc',
     api_key: KEY,
   });
 
-export default function getMovies() {
-  setParams();
+export default function getMovies(path, query = '') {
+  setParams(query);
   return axios
-    .get('trending/movie/day')
+    .get(path)
     .then(res => {
-      // console.log('res: ', res.data);
+      console.log('res: ', res.data);
       if (!res) {
         throw new Error('No more data!');
       }
